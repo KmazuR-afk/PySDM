@@ -87,7 +87,6 @@ class Moist:  # pylint: disable=too-many-instance-attributes
                 a_w_ice=target["a_w_ice"],
                 RH_ice=target["RH_ice"],
             )
-            print("AQQ", target["T"].data)
         if "air density" in self.variables:
             self.backend.air_density(
                 water_vapour_mixing_ratio=target["water_vapour_mixing_ratio"],
