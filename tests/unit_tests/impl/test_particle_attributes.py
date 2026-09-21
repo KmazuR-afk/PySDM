@@ -32,9 +32,11 @@ class TestParticleAttributes:
     )
     def test_housekeeping(backend_class, water_mass, multiplicity):
         # Arrange
-        particulator = DummyParticulator(backend_class, n_sd=len(multiplicity))
-        attributes = {"multiplicity": multiplicity, "water mass": water_mass}
-        particulator.build(attributes, int_caster=np.int64)
+        particulator = DummyParticulator(
+            backend_class,
+            n_sd=len(multiplicity),
+            attributes={"multiplicity": multiplicity, "water mass": water_mass},
+        )
         sut = particulator.attributes
         sut.healthy = False
 
