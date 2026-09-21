@@ -28,8 +28,8 @@ class TestHygroscopicEquilibrium:
         f_org = 0.607
         kappa = 0.356
 
-        class Particulator:  # pylint: disable=too-few-public-methods
-            formulae = Formulae(
+        _backend = Numba(
+            formulae=Formulae(
                 surface_tension=surface_tension,
                 constants={
                     "sgm_org": 40 * si.mN / si.m,
@@ -40,9 +40,14 @@ class TestHygroscopicEquilibrium:
                     "RUEHL_sgm_min": 40 * si.mN / si.m,
                 },
             )
+        )
+
+        class Particulator:  # pylint: disable=too-few-public-methods
+            formulae = _backend.formulae
 
         class Env:  # pylint: disable=too-few-public-methods
             particulator = Particulator()
+            backend = _backend
             thermo = {
                 "T": Numba.Storage.from_ndarray(np.full(1, T)),
                 "RH": Numba.Storage.from_ndarray(np.full(1, RH)),
