@@ -47,4 +47,4 @@ def test_rh_to_mixing_ratio_conversion(backend_instance):
     )
 
     # assert
-    assert particulator.environment.initial_water_vapour_mixing_ratio > 0
+    assert particulator.environment["water_vapour_mixing_ratio"].to_ndarray()[0] > 0
