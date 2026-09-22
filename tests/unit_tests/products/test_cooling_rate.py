@@ -100,7 +100,7 @@ class TestCoolingRate:
                 )
             )
 
-            def instantiate(self, *, particulator):
+            def instantiate(self, particulator):
                 assert particulator
                 return self
 
