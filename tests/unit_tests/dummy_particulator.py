@@ -26,6 +26,15 @@ class DummyParticulator(Particulator):
                 "multiplicity": np.ones(n_sd),
                 "signed water mass": np.full(n_sd, np.nan),
             }
+        else:
+            attributes = attributes.copy()
+
+            if (
+                "signed water mass" not in attributes
+                and "water mass" not in attributes
+                and "volume" not in attributes
+            ):
+                attributes["signed water mass"] = np.full(n_sd, np.nan)
         if requested_attributes is None:
             requested_attributes = ("cell id",)
         if environment is None:
