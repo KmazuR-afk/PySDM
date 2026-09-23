@@ -14,8 +14,11 @@ from PySDM.environments.impl import register_environment
 
 @register_environment()
 class Kinematic1D(Moist):
-    def __init__(self, *, dt, mesh, thd_of_z, rhod_of_z, z0=0, backend=None):
+    def __init__(
+        self, *, dt, mesh, thd_of_z, rhod_of_z, advection_solver, z0=0, backend=None
+    ):
         super().__init__(dt, mesh, [], backend=backend)
+        self.advection_solver = advection_solver
         self.thd0 = thd_of_z(z0 + mesh.dz * arakawa_c.z_scalar_coord(mesh.grid))
 
         rhod = rhod_of_z(z0 + mesh.dz * arakawa_c.z_scalar_coord(mesh.grid))
@@ -23,7 +26,7 @@ class Kinematic1D(Moist):
         self._tmp["rhod"] = backend.Storage.from_ndarray(rhod)
 
     def get_water_vapour_mixing_ratio(self) -> np.ndarray:
-        return self.particulator.dynamics["EulerianAdvection"].solvers.advectee
+        return self.advection_solver.advectee
 
     def get_thd(self) -> np.ndarray:
         return self.thd0

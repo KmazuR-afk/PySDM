@@ -35,15 +35,6 @@ class Simulation:
             size=(settings.z_max + settings.particle_reservoir_depth,),
         )
 
-        env = Kinematic1D(
-            dt=settings.dt,
-            mesh=self.mesh,
-            thd_of_z=settings.thd,
-            rhod_of_z=settings.rhod,
-            z0=-settings.particle_reservoir_depth,
-            backend=backend(formulae=settings.formulae),
-        )
-
         def zZ_to_z_above_reservoir(zZ):
             z_above_reservoir = zZ * (settings.nz * settings.dz) + self.z0
             return z_above_reservoir
@@ -57,6 +48,16 @@ class Simulation:
                 zZ_to_z_above_reservoir(zZ)
             ),
             g_factor_of_zZ=lambda zZ: settings.rhod(zZ_to_z_above_reservoir(zZ)),
+        )
+
+        env = Kinematic1D(
+            dt=settings.dt,
+            mesh=self.mesh,
+            thd_of_z=settings.thd,
+            rhod_of_z=settings.rhod,
+            advection_solver=mpdata,
+            z0=-settings.particle_reservoir_depth,
+            backend=backend(formulae=settings.formulae),
         )
 
         _extra_nz = settings.particle_reservoir_depth // settings.dz

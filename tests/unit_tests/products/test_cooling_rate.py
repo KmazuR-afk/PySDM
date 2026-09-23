@@ -112,6 +112,7 @@ class TestCoolingRate:
             mesh=Mesh(grid=(nz,), size=(z_max,)),
             thd_of_z=lambda z: signed_thd_lapse_rate * z + 300 * si.K,
             rhod_of_z=lambda z: 0 * z + constant_rhod,
+            advection_solver=EulerianAdvection.solvers,
             backend=CPU(),
         )
         n_sd = mean_n_sd_per_gridbox * nz

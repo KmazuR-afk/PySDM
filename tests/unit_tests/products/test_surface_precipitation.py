@@ -3,6 +3,8 @@
 import pytest
 import numpy as np
 
+from types import SimpleNamespace
+
 from PySDM import Particulator
 from PySDM.backends import ThrustRTC
 from PySDM.physics import si
@@ -43,6 +45,9 @@ class TestSurfacePrecipitation:
                     "mesh": Mesh(grid=(1,), size=(44 * si.m,)),
                     "thd_of_z": lambda z: z * np.nan,
                     "rhod_of_z": lambda z: z * np.nan,
+                    "advection_solver": SimpleNamespace(
+                        advectee=np.zeros(1),
+                    ),
                 },
                 id=Kinematic1D.__name__,
             ),
