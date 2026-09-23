@@ -1,9 +1,9 @@
 """sanity checks for the surface precipitation product"""
 
+from types import SimpleNamespace
+
 import pytest
 import numpy as np
-
-from types import SimpleNamespace
 
 from PySDM import Particulator
 from PySDM.backends import ThrustRTC
