@@ -145,8 +145,6 @@ class Simulation:
                 )
             )
 
-        environment.register_dynamics(dynamics)
-
         attributes = environment.init_attributes(
             spatial_discretisation=spatial_sampling.Pseudorandom(),
             dry_radius_spectrum=self.settings.spectrum_per_mass_of_dry_air,

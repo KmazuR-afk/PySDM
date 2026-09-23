@@ -90,7 +90,6 @@ class Simulation:
                 ),
             )
         )
-        env.register_dynamics(dynamics)
         self.attributes = env.init_attributes(
             spatial_discretisation=spatial_sampling.Pseudorandom(),
             spectral_discretisation=spectral_sampling.ConstantMultiplicity(
